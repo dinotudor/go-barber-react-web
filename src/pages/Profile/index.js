@@ -38,7 +38,7 @@ export default function Profile() {
         />
         <Input
           type="password"
-          name="confirmPasswor"
+          name="confirmPassword"
           placeholder="Confirm you password"
         />
         <button type="submit">Update proflie</button>
