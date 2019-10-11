@@ -20,26 +20,27 @@ export default function AvatarInput() {
         path: 'dataset.file',
       });
     }
-  }, [ref, registerField]);
+  }, [ref.current]); // eslint-disable-line
 
   async function handleChange(e) {
     const data = new FormData();
 
     data.append('file', e.target.files[0]);
 
-    const response = await api.post('file', data);
+    const response = await api.post('files', data);
 
     const { id, url } = response.data;
 
     setFile(id);
     setPreview(url);
   }
+
   return (
     <Container>
       <label htmlFor="avatar">
         <img
           src={
-            preview || 'https://api.adorable.io/avatars/200/abott@adorable.pngs'
+            preview || 'https://api.adorable.io/avatars/200/abott@adorable.png'
           }
           alt="avatar"
         />
