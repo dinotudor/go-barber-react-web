@@ -1,10 +1,13 @@
-import React, { useState, useMemo } from 'react';
-import { format, subDays, addDays } from 'date-fns';
+import React, { useState, useMemo, useEffect } from 'react';
+import { format, subDays, addDays, setHours, setMinutes, setSeconds } from 'date-fns';
+import { utcToZonedTime } from 'date-fns-tz';
 import es from 'date-fns/locale/es';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import api from '~/services/api';
 
 import { Container, Time } from './styles';
+
+const range = [8, 9, 19, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
 export default function Dashboard() {
   const [date, setDate] = useState(new Date());
@@ -13,6 +16,21 @@ export default function Dashboard() {
     () => format(date, "d 'de' MMMM", { locale: es }),
     [date]
   );
+
+  useEffect(() => {
+    async function loadSchedule() {
+      const response = await api.get('schedule', {
+        params: { date }
+      });
+
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+      const data = range.map(hour => {
+        const checkDate =
+        const compareDate = utcToZonedTime(date, timezone);
+      });
+    }
+  }, []);
 
   function handlePrevDay() {
     setDate(subDays(date, 1));
